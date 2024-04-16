@@ -1,6 +1,6 @@
-import { useState } from "react";
+import {useState} from 'react';
 
-export default function Player({ initialName, symbol }) {
+export default function Player({initialName, symbol, isActive}) {
     const [name, setName] = useState(initialName);
     const [isEditing, setIsEditing] = useState(false);
 
@@ -13,19 +13,23 @@ export default function Player({ initialName, symbol }) {
         setName(event.target.value);
     }
 
-    let playerName = <span className="player-name">{name}</span>
+    let playerName = <span className='player-name'>{name}</span>;
 
     if (isEditing) {
-        playerName = <input type="text" required value={name} onChange={changeHandler} />
+        playerName = (
+            <input type='text' required value={name} onChange={changeHandler} />
+        );
     }
 
     return (
-        <li>
-            <span className="player">
+        <li className={isActive ? 'active' : undefined}>
+            <span className='player'>
                 {playerName}
-                <span className="player-symbol">{symbol}</span>
+                <span className='player-symbol'>{symbol}</span>
             </span>
-            <button onClick={clickHandler}>{!isEditing ? 'Izmeni' : 'Sacuvaj'}</button>
+            <button onClick={clickHandler}>
+                {!isEditing ? 'Izmeni' : 'Sacuvaj'}
+            </button>
         </li>
     );
 }
